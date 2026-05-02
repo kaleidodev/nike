@@ -91,7 +91,7 @@ export function HistoricalReportPage() {
   return (
     <>
       <section className="rounded-xl border border-[#e8e8ec] bg-white p-[18px]">
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
             <svg
               aria-hidden="true"
@@ -115,8 +115,8 @@ export function HistoricalReportPage() {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="flex gap-3">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <div className="flex flex-wrap gap-3">
               <div className="flex items-center gap-[5px] text-[10px] text-[#aaa]">
                 <div className="h-2 w-2 rounded-sm bg-[#e0ddf8]"></div>Expenses
               </div>
@@ -129,7 +129,7 @@ export function HistoricalReportPage() {
             </div>
           </div>
         </div>
-        <div className="flex h-[120px] items-end gap-[6px]">
+        <div className="flex h-[100px] items-end gap-[6px] sm:h-[120px]">
           {historyBars.map((item) => (
             <div key={item.month} className="flex flex-1 flex-col items-center">
               <div className="flex h-full items-end gap-[2px]">
@@ -146,7 +146,7 @@ export function HistoricalReportPage() {
             </div>
           ))}
         </div>
-        <div className="mt-4 grid grid-cols-3 gap-3">
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <div className="rounded-[10px] bg-[#f7f7fa] px-4 py-3">
             <div className="flex items-center gap-2">
               <svg
@@ -252,7 +252,7 @@ export function HistoricalReportPage() {
       </section>
 
       <section className="rounded-xl border border-[#e8e8ec] bg-white p-[18px]">
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
             <svg
               aria-hidden="true"
@@ -277,7 +277,7 @@ export function HistoricalReportPage() {
               </div>
             </div>
           </div>
-          <div className="rounded-[7px] border border-[#e0e0e6] px-[10px] py-[6px] text-[11px] text-[#444]">
+          <div className="self-start rounded-[7px] border border-[#e0e0e6] px-[10px] py-[6px] text-[11px] text-[#444] sm:self-auto">
             Last 3 Months
           </div>
         </div>
@@ -334,7 +334,7 @@ export function HistoricalReportPage() {
             </div>
           </div>
         </div>
-        <div className="mt[10px] flex justify-end gap-4 text-[11px] text-[#666]">
+        <div className="mt-[10px] flex flex-wrap gap-3 text-[11px] text-[#666] sm:justify-end sm:gap-4">
           <div className="flex items-center gap-[5px]">
             <div className="h-2 w-2 rounded-full bg-[#10b981]"></div>Total
             Reports
@@ -355,7 +355,7 @@ export function HistoricalReportPage() {
       <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
         <section className="rounded-xl border border-[#e8e8ec] bg-white">
           <div className="border-b border-[#f0f0f4] px-[18px] py-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-2">
                 <svg
                   aria-hidden="true"
@@ -389,7 +389,7 @@ export function HistoricalReportPage() {
                   </div>
                 </div>
               </div>
-              <div className="flex gap-1.5">
+              <div className="flex flex-wrap gap-1.5">
                 <button
                   type="button"
                   className="flex h-7 items-center gap-1 rounded-[7px] border border-[#e0e0e6] bg-white px-[10px] text-[11px] text-[#555]"
@@ -420,11 +420,11 @@ export function HistoricalReportPage() {
             </div>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-left text-xs">
+            <table className="min-w-[640px] w-full border-collapse text-left text-xs">
               <thead>
                 <tr className="text-[10px] font-semibold uppercase tracking-[0.4px] text-[#aaa]">
                   <th className="w-5 px-4 py-3">
-                    <button onClick={toggleAll} className={`inline-flex h-[14px] w-[14px] items-center justify-center rounded-[3px] border-[1.5px] transition-all ${allSelectableSelected ? "border-[#5b3df5] bg-[#5b3df5]" : someSelected ? "border-[#5b3df5] bg-[#f0edff]" : "border-[#d0d0d8] hover:border-[#5b3df5]"} cursor-pointer`}>{allSelectableSelected && <svg aria-hidden="true" width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" strokeWidth="1.4" strokeLinecap="round"/></svg>}{someSelected && !allSelectableSelected && <svg width="4" height="4" viewBox="0 0 4 4" fill="#5b3df5"/>}</button>
+                    <button type="button" onClick={toggleAll} className={`inline-flex h-[14px] w-[14px] items-center justify-center rounded-[3px] border-[1.5px] transition-all ${allSelectableSelected ? "border-[#5b3df5] bg-[#5b3df5]" : someSelected ? "border-[#5b3df5] bg-[#f0edff]" : "border-[#d0d0d8] hover:border-[#5b3df5]"} cursor-pointer`}>{allSelectableSelected && <svg aria-hidden="true" width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" strokeWidth="1.4" strokeLinecap="round"/></svg>}{someSelected && !allSelectableSelected && <svg width="4" height="4" viewBox="0 0 4 4" fill="#5b3df5"/>}</button>
                   </th>
                   <th className="px-4 py-3">Date</th>
                   <th className="px-4 py-3">Reports</th>
@@ -443,7 +443,7 @@ export function HistoricalReportPage() {
                       className={`transition-all ${isSelectable ? "cursor-pointer" : "opacity-60 cursor-not-allowed"} ${isSelected ? "bg-[#f5f3ff]" : "hover:bg-[#fafafa]"}`}
                     >
                       <td className="px-4 py-2">
-                        <button onClick={() => toggleRow(item.date)} disabled={!isSelectable} className={`inline-flex h-[14px] w-[14px] items-center justify-center rounded-[3px] border-[1.5px] transition-all ${isSelected ? "border-[#5b3df5] bg-[#5b3df5]" : isSelectable ? "border-[#d0d0d8] hover:border-[#5b3df5]" : "border-[#d0d0d8]"}`} style={isSelectable ? {} : { opacity: 0.5 }}>
+                        <button type="button" onClick={() => toggleRow(item.date)} disabled={!isSelectable} className={`inline-flex h-[14px] w-[14px] items-center justify-center rounded-[3px] border-[1.5px] transition-all ${isSelected ? "border-[#5b3df5] bg-[#5b3df5]" : isSelectable ? "border-[#d0d0d8] hover:border-[#5b3df5]" : "border-[#d0d0d8]"}`} style={isSelectable ? {} : { opacity: 0.5 }}>
                           {isSelected && (
                             <svg
                               aria-hidden="true"
@@ -610,7 +610,7 @@ export function HistoricalReportPage() {
         </section>
 
         <section className="rounded-xl border border-[#e8e8ec] bg-white p-[18px]">
-          <div className="mb-4 flex items-center justify-between">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2">
               <svg
                 aria-hidden="true"
@@ -652,11 +652,11 @@ export function HistoricalReportPage() {
               <circle cx="12" cy="7.5" r="1.2" fill="#bbb" />
             </svg>
           </div>
-          <div className="relative my-4 h-[150px]">
+          <div className="relative my-4 h-[130px] sm:h-[150px]">
             {products.map((p) => (
               <div
                 key={p.name}
-                className={`absolute flex flex-col items-center justify-center rounded-full text-white ${p.color} ${p.size}`}
+                className={`absolute flex scale-90 flex-col items-center justify-center rounded-full text-white sm:scale-100 ${p.color} ${p.size}`}
               >
                 <div className="font-bold">{p.value}</div>
                 <div className="max-w-[80%] text-center text-[9px] leading-tight opacity-90">

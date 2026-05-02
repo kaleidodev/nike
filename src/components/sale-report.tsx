@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, type ReactNode } from "react";
+import { type ReactNode, useMemo, useState } from "react";
 
 type Status = "Complete" | "Continue" | "Restitute" | "Canceled";
 type PayMethod = "Credit Card" | "Bank Transfer" | "Paypal";
@@ -128,7 +128,7 @@ export function SaleReportPage() {
     <>
     <div className="flex flex-col gap-4">
       {/* Hero */}
-      <div className="flex items-start justify-between gap-6 rounded-xl border border-[#e8e8ec] bg-white p-6">
+      <div className="flex flex-col gap-4 rounded-xl border border-[#e8e8ec] bg-white p-4 sm:p-5 lg:flex-row lg:items-start lg:justify-between lg:gap-6 lg:p-6">
         <div>
           <div className="mb-[5px] flex items-center gap-2 text-[17px] font-bold text-[#111]">
             Sale Report
@@ -146,7 +146,7 @@ export function SaleReportPage() {
             12.4% vs last month
           </span>
         </div>
-        <div className="flex flex-col items-end gap-3">
+        <div className="flex flex-col items-start gap-3 sm:items-end">
           <div className="group relative">
             <button type="button" className="flex h-7 items-center gap-[5px] rounded-[7px] border border-[#e0e0e6] bg-white px-[10px] text-[11px] text-[#444] hover:bg-[#f5f5f8]">
               {periodType} <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="#aaa" strokeWidth="1.3" strokeLinecap="round"/></svg>
@@ -157,7 +157,7 @@ export function SaleReportPage() {
               ))}
             </div>
           </div>
-          <div className="flex items-end gap-[5px]">
+          <div className="flex flex-wrap items-end gap-[5px] sm:flex-nowrap">
             {barData.map((b) => (
               <div key={b.label} className="flex flex-col items-center gap-1">
                 <div className="flex h-[60px] items-end gap-[2px]">
@@ -178,51 +178,57 @@ export function SaleReportPage() {
       {/* Table card */}
       <div className="overflow-hidden rounded-xl border border-[#e8e8ec] bg-white">
         {/* Tabs */}
-        <div className="flex items-center border-b border-[#f0f0f4] px-[18px]">
+        <div className="overflow-x-auto border-b border-[#f0f0f4] px-[18px]">
+          <div className="flex min-w-max items-center">
           {tabs.map((t) => (
             <button key={t} onClick={() => { setActiveTab(t); setCurrentPage(1); }} className={`cursor-pointer whitespace-nowrap border-b-2 px-4 py-[13px] text-[12.5px] font-medium transition-all ${activeTab === t ? "border-[#5b3df5] text-[#5b3df5]" : "border-transparent text-[#aaa] hover:text-[#555]"}`}>{t}</button>
           ))}
+          </div>
         </div>
 
         {/* Toolbar */}
-        <div className="flex items-center gap-2 border-b border-[#f0f0f4] px-[18px] py-3">
-          <div className="relative max-w-[400px] flex-1">
+        <div className="flex flex-col gap-2 border-b border-[#f0f0f4] px-[18px] py-3 md:flex-row md:items-center">
+          <div className="relative w-full md:max-w-[400px] md:flex-1">
             <span className="absolute left-[10px] top-1/2 -translate-y-1/2"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="5.5" cy="5.5" r="4" stroke="#bbb" strokeWidth="1.3"/><path d="M9 9l2.5 2.5" stroke="#bbb" strokeWidth="1.3" strokeLinecap="round"/></svg></span>
             <input value={searchTerm} onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }} className="h-8 w-full rounded-[7px] border border-[#e0e0e6] bg-[#f7f7fa] pl-8 pr-3 text-xs text-[#333] outline-none transition-all focus:border-[#5b3df5] focus:bg-white" type="text" placeholder="Search for sale ID, customer, order status or something..."/>
           </div>
-          <div className="flex-1"/>
-          <button onClick={() => { setFilterStatus(appliedStatus); setFilterPayment(appliedPayment); setShowFilters(true); }} type="button" className="flex h-8 cursor-pointer items-center gap-[6px] whitespace-nowrap rounded-[7px] border border-[#e0e0e6] bg-white px-[13px] text-xs font-medium text-[#444] transition-all hover:bg-[#f5f5f8]">
+          <div className="hidden flex-1 md:block"/>
+          <button onClick={() => { setFilterStatus(appliedStatus); setFilterPayment(appliedPayment); setShowFilters(true); }} type="button" className="flex h-8 w-full cursor-pointer items-center justify-center gap-[6px] whitespace-nowrap rounded-[7px] border border-[#e0e0e6] bg-white px-[13px] text-xs font-medium text-[#444] transition-all hover:bg-[#f5f5f8] md:w-auto md:justify-start">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 4h9M3.5 7h6M5 10h3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
             Filters{(appliedStatus || appliedPayment) && <span className="ml-[2px] inline-flex h-[14px] w-[14px] items-center justify-center rounded-full bg-[#5b3df5] text-[9px] text-white">{[appliedStatus, appliedPayment].filter(Boolean).length}</span>}
           </button>
-          <button onClick={() => { setDownloadedFile(null); setShowAttachment(true); }} type="button" className="flex h-8 cursor-pointer items-center gap-[6px] whitespace-nowrap rounded-[7px] border border-[#e0e0e6] bg-white px-[13px] text-xs font-medium text-[#444] transition-all hover:bg-[#f5f5f8]">
+          <button onClick={() => { setDownloadedFile(null); setShowAttachment(true); }} type="button" className="flex h-8 w-full cursor-pointer items-center justify-center gap-[6px] whitespace-nowrap rounded-[7px] border border-[#e0e0e6] bg-white px-[13px] text-xs font-medium text-[#444] transition-all hover:bg-[#f5f5f8] md:w-auto md:justify-start">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="2" y="1.5" width="9" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M4.5 5h4M4.5 7h4M4.5 9h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
             Attachment
           </button>
-          <button type="button" onClick={() => alert(`已导出 ${rows.filter(r => r.selected).length || filteredRows.length} 条数据`)} className="flex h-8 cursor-pointer items-center gap-[6px] whitespace-nowrap rounded-[7px] border border-[#111] bg-[#111] px-[13px] text-xs font-medium text-white transition-all hover:bg-[#333]">
+          <button type="button" onClick={() => alert(`已导出 ${rows.filter(r => r.selected).length || filteredRows.length} 条数据`)} className="flex h-8 w-full cursor-pointer items-center justify-center gap-[6px] whitespace-nowrap rounded-[7px] border border-[#111] bg-[#111] px-[13px] text-xs font-medium text-white transition-all hover:bg-[#333] md:w-auto md:justify-start">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 2v7M3.5 6l3 3 3-3M2 10.5h9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
             Export
           </button>
         </div>
 
         {/* Table */}
-        <table className="w-full border-collapse text-xs">
+        <div className="overflow-x-auto">
+          <table className="min-w-[620px] md:min-w-[760px] lg:min-w-[920px] w-full border-collapse text-xs">
           <thead>
             <tr>
-              <th className="w-10 pb-[10px] pl-[18px] pt-[10px] text-left"><button onClick={handleToggleAll} className={`inline-flex h-[14px] w-[14px] cursor-pointer items-center justify-center rounded-[3px] border-[1.5px] transition-all ${allChecked ? "border-[#5b3df5] bg-[#5b3df5]" : someChecked ? "border-[#5b3df5] bg-[#f0edff]" : "border-[#d0d0d8]"}`}>{allChecked && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" strokeWidth="1.4" strokeLinecap="round"/></svg>}{someChecked && !allChecked && <svg width="4" height="4" viewBox="0 0 4 4" fill="#5b3df5"/>}</button></th>
+              <th className="w-10 pb-[10px] pl-[18px] pt-[10px] text-left"><button type="button" onClick={handleToggleAll} className={`inline-flex h-[14px] w-[14px] cursor-pointer items-center justify-center rounded-[3px] border-[1.5px] transition-all ${allChecked ? "border-[#5b3df5] bg-[#5b3df5]" : someChecked ? "border-[#5b3df5] bg-[#f0edff]" : "border-[#d0d0d8]"}`}>{allChecked && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" strokeWidth="1.4" strokeLinecap="round"/></svg>}{someChecked && !allChecked && <svg width="4" height="4" viewBox="0 0 4 4" fill="#5b3df5"/>}</button></th>
               <th className="cursor-pointer select-none whitespace-nowrap px-[14px] py-[10px] text-left text-[10px] font-semibold uppercase tracking-[.4px] text-[#aaa] hover:text-[#666]">
                 <div className="flex items-center gap-[3px]">Sale ID <svg width="8" height="10" viewBox="0 0 8 10" fill="none"><path d="M4 1v8M1.5 4L4 1l2.5 3" stroke="#5b3df5" strokeWidth="1.2" strokeLinecap="round"/></svg></div>
               </th>
-              {["Customer", "Order", "Delivery Date", "Delivery Pricing", "Delivery Status", "Payment Methods"].map((h) => (
-                <th key={h} className="cursor-pointer select-none whitespace-nowrap px-[14px] py-[10px] text-left text-[10px] font-semibold uppercase tracking-[.4px] text-[#aaa] hover:text-[#666]">{h}</th>
-              ))}
+              <th className="cursor-pointer select-none whitespace-nowrap px-[14px] py-[10px] text-left text-[10px] font-semibold uppercase tracking-[.4px] text-[#aaa] hover:text-[#666]">Customer</th>
+              <th className="cursor-pointer select-none whitespace-nowrap px-[14px] py-[10px] text-left text-[10px] font-semibold uppercase tracking-[.4px] text-[#aaa] hover:text-[#666]">Order</th>
+              <th className="hidden cursor-pointer select-none whitespace-nowrap px-[14px] py-[10px] text-left text-[10px] font-semibold uppercase tracking-[.4px] text-[#aaa] hover:text-[#666] md:table-cell">Delivery Date</th>
+              <th className="hidden cursor-pointer select-none whitespace-nowrap px-[14px] py-[10px] text-left text-[10px] font-semibold uppercase tracking-[.4px] text-[#aaa] hover:text-[#666] lg:table-cell">Delivery Pricing</th>
+              <th className="cursor-pointer select-none whitespace-nowrap px-[14px] py-[10px] text-left text-[10px] font-semibold uppercase tracking-[.4px] text-[#aaa] hover:text-[#666]">Delivery Status</th>
+              <th className="hidden cursor-pointer select-none whitespace-nowrap px-[14px] py-[10px] text-left text-[10px] font-semibold uppercase tracking-[.4px] text-[#aaa] hover:text-[#666] lg:table-cell">Payment Methods</th>
             </tr>
           </thead>
           <tbody>
             {paginatedRows.map((row, idx) => (
               <tr key={idx} className={`cursor-pointer transition-all ${row.selected ? "bg-[#f5f3ff]" : "hover:bg-[#fafafa]"}`}>
                 <td className="pl-[18px] py-[11px] border-b border-[#f7f7fa]" style={row.selected ? { borderLeft: "2.5px solid #5b3df5" } : {}}>
-                  <button onClick={() => handleToggleRow(idx)} className={`inline-flex h-[14px] w-[14px] cursor-pointer items-center justify-center rounded-[3px] border-[1.5px] transition-all ${row.selected ? "border-[#5b3df5] bg-[#5b3df5]" : "border-[#d0d0d8] hover:border-[#5b3df5]"}`}>
+                  <button type="button" onClick={() => handleToggleRow(idx)} className={`inline-flex h-[14px] w-[14px] cursor-pointer items-center justify-center rounded-[3px] border-[1.5px] transition-all ${row.selected ? "border-[#5b3df5] bg-[#5b3df5]" : "border-[#d0d0d8] hover:border-[#5b3df5]"}`}>
                     {row.selected && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" strokeWidth="1.4" strokeLinecap="round"/></svg>}
                   </button>
                 </td>
@@ -233,8 +239,8 @@ export function SaleReportPage() {
                   <span className={`text-xs font-medium ${row.selected ? "text-[#5b3df5]" : "text-[#111]"}`}>{row.customer}</span>
                 </td>
                 <td className={`border-b border-[#f7f7fa] px-[14px] py-[11px] whitespace-nowrap ${row.selected ? "font-medium text-[#111]" : "text-[#333]"}`}>{row.order}</td>
-                <td className={`border-b border-[#f7f7fa] px-[14px] py-[11px] whitespace-nowrap ${row.selected ? "font-medium text-[#111]" : "text-[#333]"}`}>{row.date}</td>
-                <td className="border-b border-[#f7f7fa] px-[14px] py-[11px]">
+                <td className={`hidden border-b border-[#f7f7fa] px-[14px] py-[11px] whitespace-nowrap md:table-cell ${row.selected ? "font-medium text-[#111]" : "text-[#333]"}`}>{row.date}</td>
+                <td className="hidden border-b border-[#f7f7fa] px-[14px] py-[11px] lg:table-cell">
                   <span className={row.selected ? "text-xs font-semibold text-[#5b3df5]" : "text-xs text-[#444]"}>{row.price}</span>
                 </td>
                 <td className="border-b border-[#f7f7fa] px-[14px] py-[11px]">
@@ -243,7 +249,7 @@ export function SaleReportPage() {
                     {row.status}
                   </span>
                 </td>
-                <td className="border-b border-[#f7f7fa] px-[14px] py-[11px]">
+                <td className="hidden border-b border-[#f7f7fa] px-[14px] py-[11px] lg:table-cell">
                   <div className="flex items-center gap-[6px]">
                     <span className="inline-flex items-center gap-[5px] rounded-[5px] border border-[#eeeeef] bg-[#f7f7fa] px-2 py-[2px] text-[11px] text-[#555]">
                       {payIcon[row.payment]}{row.payment}
@@ -254,10 +260,11 @@ export function SaleReportPage() {
               </tr>
             ))}
           </tbody>
-        </table>
+          </table>
+        </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between border-t border-[#f0f0f4] px-[18px] py-3">
+        <div className="flex flex-col gap-2 border-t border-[#f0f0f4] px-[18px] py-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="text-[11px] text-[#aaa]">Showing {filteredRows.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1}–{Math.min(currentPage * itemsPerPage, filteredRows.length)} of {filteredRows.length} results</div>
           <div className="flex items-center gap-[5px]">
             <button type="button" onClick={() => setCurrentPage(Math.max(1, currentPage - 1))} disabled={currentPage === 1} className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-[6px] border border-[#e0e0e6] bg-white text-[11px] text-[#555] transition-all hover:bg-[#f5f5f8] disabled:cursor-not-allowed disabled:opacity-50"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M6 2L3 5l3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg></button>
@@ -275,7 +282,7 @@ export function SaleReportPage() {
     {/* Filters Modal */}
     {showFilters && (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30" onClick={() => setShowFilters(false)}>
-        <div className="w-[340px] rounded-xl border border-[#e8e8ec] bg-white shadow-xl" onClick={e => e.stopPropagation()}>
+        <div className="max-h-[calc(100vh-2rem)] w-[calc(100vw-2rem)] max-w-[340px] overflow-y-auto rounded-xl border border-[#e8e8ec] bg-white shadow-xl" onClick={e => e.stopPropagation()}>
           <div className="flex items-center justify-between border-b border-[#f0f0f4] px-5 py-4">
             <span className="text-[13px] font-semibold text-[#111]">Filter Orders</span>
             <button onClick={() => setShowFilters(false)} className="text-[#bbb] hover:text-[#555]"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg></button>
@@ -317,7 +324,7 @@ export function SaleReportPage() {
     {/* Attachment Modal */}
     {showAttachment && (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30" onClick={() => setShowAttachment(false)}>
-        <div className="w-[380px] rounded-xl border border-[#e8e8ec] bg-white shadow-xl" onClick={e => e.stopPropagation()}>
+        <div className="max-h-[calc(100vh-2rem)] w-[calc(100vw-2rem)] max-w-[380px] overflow-y-auto rounded-xl border border-[#e8e8ec] bg-white shadow-xl" onClick={e => e.stopPropagation()}>
           <div className="flex items-center justify-between border-b border-[#f0f0f4] px-5 py-4">
             <span className="text-[13px] font-semibold text-[#111]">Attachments <span className="ml-1 rounded-full bg-[#f0edff] px-2 py-px text-[10px] text-[#5b3df5]">{attachments.length}</span></span>
             <button onClick={() => setShowAttachment(false)} className="text-[#bbb] hover:text-[#555]"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg></button>

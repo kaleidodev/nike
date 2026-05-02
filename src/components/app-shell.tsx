@@ -415,8 +415,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex min-h-screen">
         <Sidebar active={active} />
         <section className="flex min-w-0 flex-1 flex-col">
-          <header className="flex h-14 items-center border-b border-[#e8e8ec] bg-white px-6">
-            <div className="flex items-center gap-1 text-xs text-[#aaa]">
+          <header className="flex min-h-14 flex-col gap-2 border-b border-[#e8e8ec] bg-white px-4 py-3 sm:flex-row sm:items-center sm:px-5 md:px-6">
+            <div className="flex flex-wrap items-center gap-x-1 gap-y-1 text-xs text-[#aaa]">
               {breadcrumb.map((item, idx) => (
                 <div key={item} className="flex items-center gap-1">
                   {idx > 0 && (
@@ -447,10 +447,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                 </div>
               ))}
             </div>
-            <div className="ml-auto flex gap-2">
+            <div className="flex w-full flex-wrap gap-2 sm:ml-auto sm:w-auto sm:justify-end">
               <button
                 type="button"
-                className="flex h-8 items-center gap-2 rounded-[7px] border border-[#e0e0e6] bg-white px-[14px] text-xs"
+                className="flex h-8 w-full items-center justify-center gap-2 rounded-[7px] border border-[#e0e0e6] bg-white px-3 text-xs sm:w-auto sm:justify-start sm:px-[14px]"
               >
                 <svg
                   aria-hidden="true"
@@ -470,7 +470,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </button>
               <button
                 type="button"
-                className="flex h-8 items-center gap-2 rounded-[7px] border border-[#111] bg-[#111] px-[14px] text-xs text-white"
+                className="flex h-8 w-full items-center justify-center gap-2 rounded-[7px] border border-[#111] bg-[#111] px-3 text-xs text-white sm:w-auto sm:justify-start sm:px-[14px]"
               >
                 <svg
                   aria-hidden="true"
@@ -495,7 +495,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </button>
             </div>
           </header>
-          <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-5 md:p-6">
+          <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4 sm:p-5 md:p-6">
             {children}
           </div>
         </section>
